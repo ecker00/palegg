@@ -3,12 +3,21 @@
 	This is the place to visit when your feeling hangry
 	and you're wondering what to make for lunch!
 </p>
-<div class="content meals" data-target="meals">
-  {{#each getMeals.items}}
-    {{>home-meal}}
-  {{/each}}
-  {{#if getMeals.next}}
-    {{>home-loadMore}}
+<div class="content">
+  {{#if getMeals.items}}
+    <div class="meals" data-target="meals">
+      {{#each getMeals.items}}
+        {{>home-meal}}
+      {{/each}}
+      {{#if getMeals.next}}
+        {{>home-loadMore}}
+      {{/if}}
+    </div>
+  {{else}}
+    <h2>No submissions yet</h2>
+    <p class="text-center">
+      Maybe you will <a href="/?create">add</a> the first one?
+    </p>
   {{/if}}
 </div>
 
