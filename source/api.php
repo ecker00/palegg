@@ -117,12 +117,12 @@ class API {
     // File upload handling
     $image = new Bulletproof\Image($_FILES);
     if (!$image['picture']) return ['error'=>"No picture uploaded"];
-    $image->setMime(['jpeg']);
+    $image->setMime(['jpeg','png']);
     $image->setSize(100, 20000000); // Max 20 mb
     $image->setDimension(10000, 10000); // Max 10 000 pixels
     $image->setLocation($_SERVER['DOCUMENT_ROOT'].'/uploads');
     $upload = $image->upload(); 
-    if (!$upload && $image['error']) return array_merge($result, $image, ['errorTag'=>'picture']);
+    if (!$upload && $image['error']) return array_merge($result, ['error'=>$image['error']], ['errorTag'=>'picture']);
     if (!$upload) return array_merge($result, ['errorTag'=>'picture', 'error'=>'Picture upload failed']);
     $imageName = basename($upload->getFullPath());
     // Store to database
