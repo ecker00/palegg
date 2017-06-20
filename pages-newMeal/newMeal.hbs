@@ -36,7 +36,7 @@
   {{! Picture }}
   <label>Snap the beauty</label>
   <div style="position: relative;">
-    <input type="hidden" name="MAX_FILE_SIZE" value="10000000">
+    <input type="hidden" name="MAX_FILE_SIZE" value="10000000">{{! 10 MB Limit, also set server side }}
     <label for="picture" class="button" data-text="Upload a photo">Upload a photo</label>
     <input id="picture" name="picture" type="file" required>
     {{#logic postResult.newMeal.errorTag '==' 'picture'}}<div class="error">{{postResult.newMeal.error}}</div>{{/logic}}
