@@ -1,4 +1,3 @@
-
 # Pålegg – A lunch love web app
 
 A little lunch love web app to share our love for unique lunches. Share your ideas and vote for your favourites. This web app is just as much about the tech as it's about the food.
