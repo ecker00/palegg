@@ -35,15 +35,22 @@ class App {
 				],
 			],
 		];
-		$testDB = new dbSetup('localhost', 'root', '', $dbStructure);
+		$dbHost = getenv('DB_HOST')?: 'localhost';
+		$dbName = getenv('DB_NAME')?: 'palegg';
+		$dbUser = getenv('DB_USER')?: 'root';
+		$dbPass = getenv('DB_PASS')?: '';
+		$testDB = new dbSetup($dbUser, $dbPass, $dbStructure, $dbHost);
 		$testDB->hashFile = '../_tmp/databaseHash.txt';
 		$testDB->checkStructure(); // Initalises DB as described above
 		$testDB->conn->close();
-		// After DB is setup, re-connect
-		$this->db = new ezSQL_mysql('root','','palegg','localhost');
 		
+		// After DB is setup, re-connect
+		$this->db = new ezSQL_mysqli($dbUser, $dbPass, $dbName, $dbHost);
+		
+		// Setup the API
 		$this->api = new API($this->db);
 		if ($this->api->isAjax) return; // Don't render the rest, if it's an Ajax call
+		
 		// Pages
 		// –––––––––––––––––––––––––––––––––––––––––––––––––– //
   	$this->pages = [ // Each key is a url target

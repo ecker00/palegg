@@ -122,7 +122,7 @@ class API {
     $image->setDimension(10000, 10000); // Max 10 000 pixels
     $image->setLocation($_SERVER['DOCUMENT_ROOT'].'/uploads');
     $upload = $image->upload(); 
-    if (!$upload && $image['error']) return array_merge($result, $image['error'], ['errorTag'=>'picture']);
+    if (!$upload && $image['error']) return array_merge($result, $image, ['errorTag'=>'picture']);
     if (!$upload) return array_merge($result, ['errorTag'=>'picture', 'error'=>'Picture upload failed']);
     $imageName = basename($upload->getFullPath());
     // Store to database
