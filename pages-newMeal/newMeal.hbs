@@ -1,0 +1,53 @@
+––––––––––saveAs: newMeal-main.hbs
+<div class="content">
+  {{#if postResult.newMeal.success}}
+    <div data-hbs="newMeal-success">{{>newMeal-success}}</div>
+  {{else}}
+    <div data-hbs="newMeal-form">{{>newMeal-form}}</div>
+  {{/if}}
+</div>
+
+––––––––––saveAs: newMeal-success.hbs
+<h2>Done!</h2>
+<p class="text-wrap">
+  Thank you for sharing your awesome lunch idea with us.
+  Head back to the <a href="/">overview</a> and vote for your favourites!
+</p>
+<br>
+<div class="text-center">
+  <a class="button fit" href="/">Home</a>
+</div>
+<br>
+
+––––––––––saveAs: newMeal-form.hbs
+<form method="POST" enctype="multipart/form-data">
+  <input type="hidden" name="api" value="newMeal">
+  
+  {{! Title }}
+  <label for="title">Name your combo</label>
+  <input id="title" type="text" name="title" value="{{postResult.newMeal.title}}" placeholder="The awesome souce" required>
+  {{#logic postResult.newMeal.errorTag '==' 'title'}}<div class="error">{{postResult.newMeal.error}}</div>{{/logic}}
+  
+  {{! Description }}
+  <label for="description">How to conjure</label>
+  <textarea id="description" name="description" placeholder="Tell us how to put this masterpeace together" required>{{postResult.newMeal.description}}</textarea>
+  {{#logic postResult.newMeal.errorTag '==' 'description'}}<div class="error">{{postResult.newMeal.error}}</div>{{/logic}}
+  
+  {{! Picture }}
+  <label>Snap the beauty</label>
+  <div style="position: relative;">
+    <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
+    <label for="picture" class="button" data-text="Upload a photo">Upload a photo</label>
+    <input id="picture" name="picture" type="file" required>
+    {{#logic postResult.newMeal.errorTag '==' 'picture'}}<div class="error">{{postResult.newMeal.error}}</div>{{/logic}}
+  </div>
+  
+  {{! Author }}
+  <label for="author">Signed</label>
+  <input id="author" type="text" name="author" value="{{postResult.newMeal.author}}" placeholder="Creator of this masterpeace" required>
+  {{#logic postResult.newMeal.errorTag '==' 'author'}}<div class="error">{{postResult.newMeal.error}}</div>{{/logic}}
+  
+  <label>Finished</label>
+  <button type="submit">Share your magic</button>
+  <br>
+</form>
