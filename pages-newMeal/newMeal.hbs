@@ -22,17 +22,17 @@
 ––––––––––saveAs: newMeal-form.hbs
 <form method="POST" enctype="multipart/form-data">
   <input type="hidden" name="api" value="newMeal">
-  
+
   {{! Title }}
   <label for="title">Name your combo</label>
-  <input id="title" type="text" name="title" value="{{postResult.newMeal.title}}" placeholder="The awesome souce" required>
+  <input id="title" type="text" name="title" value="{{postResult.newMeal.title}}" placeholder="The awesome sauce" required>
   {{#logic postResult.newMeal.errorTag '==' 'title'}}<div class="error">{{postResult.newMeal.error}}</div>{{/logic}}
-  
+
   {{! Description }}
   <label for="description">How to conjure</label>
-  <textarea id="description" name="description" placeholder="Tell us how to put this masterpeace together" required>{{postResult.newMeal.description}}</textarea>
+  <textarea id="description" name="description" placeholder="Tell us how to put this masterpiece together" required>{{postResult.newMeal.description}}</textarea>
   {{#logic postResult.newMeal.errorTag '==' 'description'}}<div class="error">{{postResult.newMeal.error}}</div>{{/logic}}
-  
+
   {{! Picture }}
   <label>Snap the beauty</label>
   <div style="position: relative;">
@@ -41,12 +41,12 @@
     <input id="picture" name="picture" type="file" required>
     {{#logic postResult.newMeal.errorTag '==' 'picture'}}<div class="error">{{postResult.newMeal.error}}</div>{{/logic}}
   </div>
-  
+
   {{! Author }}
   <label for="author">Signed</label>
-  <input id="author" type="text" name="author" value="{{postResult.newMeal.author}}" placeholder="Creator of this masterpeace" required>
+  <input id="author" type="text" name="author" value="{{postResult.newMeal.author}}" placeholder="Creator of this masterpiece" required>
   {{#logic postResult.newMeal.errorTag '==' 'author'}}<div class="error">{{postResult.newMeal.error}}</div>{{/logic}}
-  
+
   <label>Finished</label>
   <button type="submit">Share your magic</button>
   <br>
