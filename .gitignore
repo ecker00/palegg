@@ -4,3 +4,4 @@
 /_hbs/*
 /live/uploads/*
 php_errors.log
+**/.DS_Store

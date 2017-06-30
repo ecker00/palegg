@@ -6,12 +6,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-autoprefixer');
-  
+
   // Include these tasks if using PNG spirete sheets
   //grunt.loadNpmTasks('grunt-spritesmith');
   //grunt.loadNpmTasks('grunt-contrib-imagemin');
   //grunt.loadNpmTasks('grunt-scss-image-helpers');
-  
+
   // Include this task if using SVG files
   //grunt.loadNpmTasks('grunt-svgmin');
 
@@ -78,18 +78,22 @@ module.exports = function(grunt) {
     },
     shell: { // Split handlebar templates using "save: myFilename.hbs" lines
       handlebarsSplit: { // Note: On mac, change 'csplit' to 'gcsplit' and run "brew install coreutils" for it to work
-        command: "rm -f _hbs/*.hbs & for file in page*/*.hbs; do csplit -z -f \"_hbs/hbsSplit_$(basename $file)\" $file '/saveAs:/' '{*}'; done;"
+        // Linux use:
+        // command: "rm -f _hbs/*.hbs & for file in page*/*.hbs; do csplit -z -f \"_hbs/hbsSplit_$(basename $file)\" $file '/saveAs:/' '{*}'; done;"
+        command: "rm -f _hbs/*.hbs & for file in page*/*.hbs; do gcsplit -z -f \"_hbs/hbsSplit_$(basename $file)\" $file '/saveAs:/' '{*}'; done;"
       },
       handlebarsRename: { // Note: space is the delimeter
         command: "for file in _hbs/hbsSplit_*; do mv $file _hbs/$(head -1 $file | cut -d ' ' -f 2); done;"
       },
       handlebarsDeleteFirstLine: { // Note: On mac put a space after -i in: sed -i '.del'
-        command: "rm -f _hbs/hbsSplit_* & for file in _hbs/*.hbs; do sed -i'.del' '1d' $file; rm ${file}.del 2> /dev/null; done;"
+        // Linux use:
+        // command: "rm -f _hbs/hbsSplit_* & for file in _hbs/*.hbs; do sed -i'.del' '1d' $file; rm ${file}.del 2> /dev/null; done;"
+        command: "rm -f _hbs/hbsSplit_* & for file in _hbs/*.hbs; do sed -i '.del' '1d' $file; rm ${file}.del 2> /dev/null; done;"
       },
       handlebarsDeleteCompiled: { // Clears the pre-compile cache
         command: "rm -f _hbs/*.php;"
       },
-      
+
       // -------------------- VERSIONING -------------------- //
       // The file "_tmp/version.txt" should only contain a number, which is automatically incremented.
       // Use the number in this file to indicate in PHP when the files have changed
@@ -111,7 +115,7 @@ module.exports = function(grunt) {
         'live/script.js': ['_tmp/*.js','source/*.js','page*/*.js'],
       }}
     },
-    
+
     /*
     // -------------------- SVG -------------------- //
     svgmin: {
@@ -129,7 +133,7 @@ module.exports = function(grunt) {
         }
       }
     },
-    
+
     // -------------------- PNG -------------------- //
     // Spritesmith
     // NOTE: Change the image URLs to "...file.svg?v=2" to invalidate the cache
@@ -198,7 +202,7 @@ module.exports = function(grunt) {
       }
     },
     */
-    
+
     watch: {
       reload: { files: 'Gruntfile.js',  tasks: 'build', options: {reload: true} },
       css:    { files: 'page*/*.scss', tasks: 'build:css'  },
@@ -206,7 +210,7 @@ module.exports = function(grunt) {
       js:     { files: ['page*/*.js', 'source/*.js'], tasks: 'build:js'},
     },
   });
-   
+
   grunt.registerTask('snutiNote', function() {
     grunt.log.writeln(['\nSnuti note:\nRememmber to hug your co-worker <3']);
   });
